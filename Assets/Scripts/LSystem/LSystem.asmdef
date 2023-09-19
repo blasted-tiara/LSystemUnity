@@ -1,3 +1,16 @@
 {
-	"name": "LSystem"
+    "name": "LSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:433d04958d1f7214ca1a8f3edb2d8e2b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

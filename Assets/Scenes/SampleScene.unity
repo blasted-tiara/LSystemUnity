@@ -339,19 +339,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lSystem:
-    axiom: A[B]A
-    iterations: 1
+    axiom: F
+    iterations: 5
     rules:
     - prefix: 
       suffix: 
-      ruleCharachter: A
-      ruleReplacement: B[A]B
-      probability: 1
-    - prefix: 
-      suffix: 
-      ruleCharachter: B
-      ruleReplacement: '[CD]'
-      probability: 1
+      ruleCharachter: F
+      ruleReplacement: F[+F]F[-F]F
+      probability: 0
 --- !u!4 &1298092627
 Transform:
   m_ObjectHideFlags: 0
