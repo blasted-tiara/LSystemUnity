@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class TurtleState {
-    public Vector3 position = Vector3.zero;
-    public Vector3 direction = new(0f, 0f, 0f);
+public struct TurtleState {
+    public Vector3 position;
+    public Vector3 direction;
     public TreeNode currentNode;
+    public float radius;
 }
