@@ -110,6 +110,17 @@ public class TreeData {
         return mesh;
     }
     
+    public Mesh GenerateDecimatedMesh() {
+        Mesh mesh = GenerateMesh();
+        float quality = 0.3f;
+        
+        var meshSimplifier = new UnityMeshSimplifier.MeshSimplifier();
+        meshSimplifier.Initialize(mesh);
+        meshSimplifier.SimplifyMesh(quality);
+
+        return meshSimplifier.ToMesh();
+    }
+    
     private void CreateVertices(Vector3[] vertices, TreeNode rootNode, int sides) {
         Queue<TreeNode> nodesToCreate = new();
         nodesToCreate.Enqueue(rootNode);

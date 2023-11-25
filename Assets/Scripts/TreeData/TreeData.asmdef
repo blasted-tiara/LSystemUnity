@@ -1,3 +1,16 @@
 {
-	"name": "TreeData"
+    "name": "TreeData",
+    "rootNamespace": "",
+    "references": [
+        "GUID:83502135197dbb64289d9874233a3059"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

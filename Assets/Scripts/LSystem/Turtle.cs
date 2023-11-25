@@ -25,7 +25,7 @@ public class Turtle : MonoBehaviour {
         TreeData treeData = new(stepSize, angle, initRadius, radiusDecay);
         treeData.CreateTreeDataFromString(treeDescriptorString);
 
-        Mesh mesh = treeData.GenerateMesh();
+        Mesh mesh = treeData.GenerateDecimatedMesh();
         GetComponent<MeshFilter>().mesh = mesh;
     }
 }
