@@ -9,7 +9,7 @@ public class TreeData {
     private readonly float radiusDecay;
     private const int numberOfSides = 6;
 
-    private Stack<TurtleState> turtleStateStack = new();
+    private readonly Stack<TurtleState> turtleStateStack = new();
     
     public TreeData(float stepSize, float angle) {
         this.stepSize = stepSize;
@@ -25,18 +25,29 @@ public class TreeData {
 
     public void CreateTreeDataFromString(string LSystemString) {
         TreeNode currentNode = root = new(Vector3.zero, null, initRadius);
-
+        
         TurtleState turtleState = new() {
             position = Vector3.zero,
-            radius = initRadius
+            radius = initRadius,
+            consecutiveForwardState = false,
+            timesForward = 0,
         };
         foreach (char c in LSystemString) {
-            switch (c) {
-                case 'F':
-                    TreeNode newNode = new(GetForwardPosition(currentNode, turtleState), currentNode, turtleState.radius);
+            if (c != 'F') {
+                if (turtleState.consecutiveForwardState == true) {
+                    TreeNode newNode = new(GetForwardPosition(currentNode, turtleState, turtleState.timesForward), currentNode, turtleState.radius);
                     currentNode.AddChild(newNode);
                     currentNode = newNode;
-                    break;
+
+                    turtleState.consecutiveForwardState = false;
+                    turtleState.timesForward = 0;
+                }
+            } else {
+                turtleState.consecutiveForwardState = true;
+                turtleState.timesForward++;
+            }
+
+            switch (c) {
                 case '+':
                     turtleState.direction.z += angle;
                     break;
@@ -199,7 +210,6 @@ public class TreeData {
         Queue<TreeNode> nodesToCount = new();
         nodesToCount.Enqueue(rootNode);
 
-        // using smooth mesh for now
         while (nodesToCount.Count > 0) {
             TreeNode currentNode = nodesToCount.Dequeue();
             
@@ -241,10 +251,6 @@ public class TreeData {
         return count;
     }
     
-    private Mesh SmoothenMesh(Mesh roughMesh) {
-        return roughMesh;
-    }
-
     private void DrawLinesToChildren(TreeNode currentNode) {
         if (currentNode.children != null) {
             foreach (TreeNode child in currentNode.children) {
@@ -258,7 +264,11 @@ public class TreeData {
     }
 
     private Vector3 GetForwardPosition(TreeNode currentNode, TurtleState turtleState) {
-        Vector3 newPosition = currentNode.position + Quaternion.Euler(turtleState.direction) * Vector3.up * stepSize;
+        return GetForwardPosition(currentNode, turtleState, 1);
+    }
+    
+    private Vector3 GetForwardPosition(TreeNode currentNode, TurtleState turtleState, int numberOfSteps) {
+        Vector3 newPosition = currentNode.position + Quaternion.Euler(turtleState.direction) * Vector3.up * stepSize * numberOfSteps;
 
         return newPosition;
     }
