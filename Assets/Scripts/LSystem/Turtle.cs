@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
@@ -25,8 +24,6 @@ public class Turtle : MonoBehaviour {
         treeDescriptorString = lSystem.Generate();
         TreeData treeData = new(stepSize, angle, initRadius, radiusDecay);
         treeData.CreateTreeDataFromString(treeDescriptorString);
-        
-        //treeData.VisualiseTreeStructure();
 
         Mesh mesh = treeData.GenerateMesh();
         GetComponent<MeshFilter>().mesh = mesh;

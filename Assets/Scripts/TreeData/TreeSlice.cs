@@ -1,9 +1,6 @@
 using UnityEngine;
 
 public class TreeSlice {
-    /**
-     * 
-     */
     public static Vector3[] GenerateSlice(TreeNode center, int n) {
         int numberOfChildren = center.children == null ? 0 : center.children.Length;
 
