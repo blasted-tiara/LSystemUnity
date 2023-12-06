@@ -141,13 +141,14 @@ public class TreeData {
             TreeNode currentNode = nodesToCreate.Dequeue();
             currentNode.vertexIndex = currentIndex;
             if (currentNode.children != null && currentNode.children.Length > 0) {
-                foreach (TreeNode child in currentNode.children) {
-                    nodesToCreate.Enqueue(child);
-                }
                 Vector3[] sliceVertices = TreeSlice.GenerateSlice(currentNode, sides);
                 foreach (Vector3 vertex in sliceVertices) {
                     vertices[currentIndex] = vertex;
                     currentIndex++;
+                }
+
+                foreach (TreeNode child in currentNode.children) {
+                    nodesToCreate.Enqueue(child);
                 }
             } else {
                 vertices[currentIndex] = currentNode.position;
@@ -158,24 +159,27 @@ public class TreeData {
     
     private void CreateTrianglesForApex(int[] triangles, int currentTriangleIndex, TreeNode currentNode, int sides) {
         int parentVertexIndexStart = currentNode.parent.vertexIndex;
+        int childOrder = currentNode.GetChildOrder();
         int apexVertexIndex = currentNode.vertexIndex;
         for (int i = 0; i < sides; i++) {
-            triangles[currentTriangleIndex + 3 * i] = parentVertexIndexStart + i;
-            triangles[currentTriangleIndex + 3 * i + 1] = parentVertexIndexStart + (i + 1) % sides;
+            triangles[currentTriangleIndex + 3 * i] = parentVertexIndexStart + i + childOrder * sides;
+            triangles[currentTriangleIndex + 3 * i + 1] = parentVertexIndexStart + (i + 1) % sides + childOrder * sides;
             triangles[currentTriangleIndex + 3 * i + 2] = apexVertexIndex; 
         }
     }
 
     private void CreateTrianglesForIntermediateNode(int[] triangles, int currentTriangleIndex, TreeNode currentNode, int sides) {
+        int childOrder = currentNode.GetChildOrder();
+        int mostColinearChildIndex = currentNode.GetMostColinearChild();
         int parentVertexIndexStart = currentNode.parent.vertexIndex;
         for (int i = 0; i < sides; i++) {
-            triangles[currentTriangleIndex + 6 * i] = parentVertexIndexStart + i;
-            triangles[currentTriangleIndex + 6 * i + 1] = parentVertexIndexStart + (i + 1) % sides;
-            triangles[currentTriangleIndex + 6 * i + 2] = currentNode.vertexIndex + i;
+            triangles[currentTriangleIndex + 6 * i] = parentVertexIndexStart + i + childOrder * sides;
+            triangles[currentTriangleIndex + 6 * i + 1] = parentVertexIndexStart + (i + 1) % sides + childOrder * sides;
+            triangles[currentTriangleIndex + 6 * i + 2] = currentNode.vertexIndex + i + mostColinearChildIndex * sides;
 
-            triangles[currentTriangleIndex + 6 * i + 3] = parentVertexIndexStart + (i + 1) % sides;
-            triangles[currentTriangleIndex + 6 * i + 4] = currentNode.vertexIndex + (i + 1) % sides;
-            triangles[currentTriangleIndex + 6 * i + 5] = currentNode.vertexIndex + i;
+            triangles[currentTriangleIndex + 6 * i + 3] = parentVertexIndexStart + (i + 1) % sides + childOrder * sides;
+            triangles[currentTriangleIndex + 6 * i + 4] = currentNode.vertexIndex + (i + 1) % sides + mostColinearChildIndex * sides;
+            triangles[currentTriangleIndex + 6 * i + 5] = currentNode.vertexIndex + i + mostColinearChildIndex * sides;
         }
     }
     
@@ -214,7 +218,7 @@ public class TreeData {
             TreeNode currentNode = nodesToCount.Dequeue();
             
             if (currentNode.children != null && currentNode.children.Length > 0) {
-                count += sides;
+                count += sides * currentNode.children.Length;
                 foreach (TreeNode child in currentNode.children) {
                     nodesToCount.Enqueue(child);
                 }
@@ -229,6 +233,10 @@ public class TreeData {
     private int GetTriangleCount(TreeNode rootNode, int sides) {
         int count = 0;
         Queue<TreeNode> nodesToCount = new();
+        
+        if (rootNode.children == null || rootNode.children.Length == 0) {
+            return 0;
+        }
 
         foreach (TreeNode child in rootNode.children) {
             nodesToCount.Enqueue(child);
