@@ -123,6 +123,158 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &321077631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 321077635}
+  - component: {fileID: 321077634}
+  - component: {fileID: 321077633}
+  - component: {fileID: 321077632}
+  m_Layer: 0
+  m_Name: TestTurtle (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!23 &321077632
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321077631}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6ce5f15030cbe5741aa65aa66fae239a, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &321077633
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321077631}
+  m_Mesh: {fileID: 0}
+--- !u!114 &321077634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321077631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80a24143979fe014da5f68cbd0ae2b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angle: 11.25
+  stepSize: 1
+  lSystem:
+    axiom: T
+    iterations: 20
+    rules:
+    - name: Root
+      prefix: 
+      suffix: 
+      ruleCharachter: T
+      ruleReplacement: FFFFF!FFFFF!FFFFF!FFFFFF!FFFFFFF!A
+      probability: 0
+    - name: 
+      prefix: 
+      suffix: 
+      ruleCharachter: A
+      ruleReplacement: '!FFFFF&&&&&[!!++++++++++Fb][!!-----------FB]A'
+      probability: 0
+    - name: 
+      prefix: 
+      suffix: 
+      ruleCharachter: B
+      ruleReplacement: '!FF[!!&&&C][!!^^^C]!!E'
+      probability: 0
+    - name: 
+      prefix: 
+      suffix: 
+      ruleCharachter: C
+      ruleReplacement: '!D'
+      probability: 0
+    - name: 
+      prefix: 
+      suffix: 
+      ruleCharachter: D
+      ruleReplacement: '!FC'
+      probability: 0
+    - name: 
+      prefix: 
+      suffix: 
+      ruleCharachter: E
+      ruleReplacement: '!F!F+!!B'
+      probability: 0
+    - name: 
+      prefix: 
+      suffix: 
+      ruleCharachter: b
+      ruleReplacement: FF[!!&&&C][!!^^^C]!!e
+      probability: 0
+    - name: 
+      prefix: 
+      suffix: 
+      ruleCharachter: e
+      ruleReplacement: '!FF-!!b'
+      probability: 0
+  initRadius: 3
+  radiusDecay: 0.92
+--- !u!4 &321077635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321077631}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,50 +587,58 @@ MonoBehaviour:
   angle: 11.25
   stepSize: 1
   lSystem:
-    axiom: T
-    iterations: 20
+    axiom: A
+    iterations: 10
     rules:
-    - prefix: 
-      suffix: 
-      ruleCharachter: T
-      ruleReplacement: FFFFF!FFFFF!FFFFF!FFFFFF!FFFFFFF!A
-      probability: 0
-    - prefix: 
+    - name: Trunk
+      prefix: 
       suffix: 
       ruleCharachter: A
-      ruleReplacement: '!FFFFF&&&&&[!!++++++++++Fb][!!-----------FB]A'
+      ruleReplacement: F
       probability: 0
-    - prefix: 
+    - name: Long Segment
+      prefix: 
       suffix: 
-      ruleCharachter: B
-      ruleReplacement: '!FF[!!&&&C][!!^^^C]!!E'
+      ruleCharachter: L
+      ruleReplacement: FFFFF
       probability: 0
-    - prefix: 
+    - name: Trunk
+      prefix: 
+      suffix: 
+      ruleCharachter: T
+      ruleReplacement: L!L!L!L!
+      probability: 0
+    - name: Crown
+      prefix: 
       suffix: 
       ruleCharachter: C
-      ruleReplacement: '!D'
+      ruleReplacement: lmt
       probability: 0
-    - prefix: 
+    - name: Top Crown segment
+      prefix: 
       suffix: 
-      ruleCharachter: D
-      ruleReplacement: '!FC'
+      ruleCharachter: t
+      ruleReplacement: L!L!L!
       probability: 0
-    - prefix: 
+    - name: Middle Crown segment
+      prefix: 
       suffix: 
-      ruleCharachter: E
-      ruleReplacement: '!F!F+!!B'
+      ruleCharachter: m
+      ruleReplacement: L!L!L!
       probability: 0
-    - prefix: 
+    - name: Lower Crown segment
+      prefix: 
       suffix: 
-      ruleCharachter: b
-      ruleReplacement: FF[!!&&&C][!!^^^C]!!e
+      ruleCharachter: l
+      ruleReplacement: L[+++++++!!!!!!L!L!L!L][---------!!!!!!L!L!L!L!]l
       probability: 0
-    - prefix: 
+    - name: Lower Crown segment
+      prefix: 
       suffix: 
-      ruleCharachter: e
-      ruleReplacement: '!FF-!!b'
+      ruleCharachter: l
+      ruleReplacement: F[+++++]
       probability: 0
-  initRadius: 4
+  initRadius: 3
   radiusDecay: 0.92
 --- !u!4 &1298092627
 Transform:
@@ -553,3 +713,4 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1298092627}
   - {fileID: 754659641}
+  - {fileID: 321077635}
