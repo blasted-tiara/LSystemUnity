@@ -2,6 +2,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class Rule {
+    public string name = "";
     public string prefix = "";
     public string suffix = "";
     public string ruleCharachter = "";
