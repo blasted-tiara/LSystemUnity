@@ -204,8 +204,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a24143979fe014da5f68cbd0ae2b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leafModel: {fileID: 0}
   angle: 11.25
   stepSize: 1
+  initRadius: 3
+  radiusDecay: 0.92
   lSystem:
     axiom: T
     iterations: 20
@@ -258,8 +261,6 @@ MonoBehaviour:
       ruleCharachter: e
       ruleReplacement: '!FF-!!b'
       probability: 0
-  initRadius: 3
-  radiusDecay: 0.92
 --- !u!4 &321077635
 Transform:
   m_ObjectHideFlags: 0
@@ -386,7 +387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!154 &754659639
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -546,13 +547,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -172}
+  m_LocalRotation: {x: -0.1092717, y: -0, z: -0, w: 0.99401194}
+  m_LocalPosition: {x: 0, y: 1, z: -452}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -12.547, y: 0, z: 0}
 --- !u!1 &1298092625
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,62 +585,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a24143979fe014da5f68cbd0ae2b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leafModel: {fileID: 7654427050651498270, guid: 431fe77d955df764d9484e6d1c4746ae, type: 3}
   angle: 11.25
-  stepSize: 1
+  stepSize: 10
+  initRadius: 10
+  radiusDecay: 0.95
   lSystem:
     axiom: A
-    iterations: 10
+    iterations: 15
     rules:
-    - name: Trunk
+    - name: Tree
       prefix: 
       suffix: 
       ruleCharachter: A
-      ruleReplacement: F
-      probability: 0
-    - name: Long Segment
-      prefix: 
-      suffix: 
-      ruleCharachter: L
-      ruleReplacement: FFFFF
-      probability: 0
+      ruleReplacement: TC
+      probability: 1
     - name: Trunk
       prefix: 
       suffix: 
       ruleCharachter: T
-      ruleReplacement: L!L!L!L!
-      probability: 0
+      ruleReplacement: '!!!!FFFFFFFF!FFFFFFFFFF!FFFF!FFFFFFFFFFF'
+      probability: 1
     - name: Crown
       prefix: 
       suffix: 
       ruleCharachter: C
-      ruleReplacement: lmt
-      probability: 0
-    - name: Top Crown segment
+      ruleReplacement: F[p++++++++++P]&&&[p++++++++++P]FFFFF&&&&&[p++++++++++P]&&&&&&[p++++++++++P]!&&&&&C
+      probability: 1
+    - name: Primary shrink
       prefix: 
       suffix: 
-      ruleCharachter: t
-      ruleReplacement: L!L!L!
-      probability: 0
-    - name: Middle Crown segment
+      ruleCharachter: p
+      ruleReplacement: '!!!!!!!!!!!!!!!!!!!!!'
+      probability: 1
+    - name: Primary branch
       prefix: 
       suffix: 
-      ruleCharachter: m
-      ruleReplacement: L!L!L!
-      probability: 0
-    - name: Lower Crown segment
+      ruleCharachter: P
+      ruleReplacement: FLFLFLFLFL[&&&&+++++S]FLF[^^^^++++S]-Q
+      probability: 0.33
+    - name: Primary branch
       prefix: 
       suffix: 
-      ruleCharachter: l
-      ruleReplacement: L[+++++++!!!!!!L!L!L!L][---------!!!!!!L!L!L!L!]l
-      probability: 0
-    - name: Lower Crown segment
+      ruleCharachter: P
+      ruleReplacement: FLFLFLFLFLFL[^^^^++++S]FLF-Q
+      probability: 0.33
+    - name: Primary branch
       prefix: 
       suffix: 
-      ruleCharachter: l
-      ruleReplacement: F[+++++]
-      probability: 0
-  initRadius: 3
-  radiusDecay: 0.92
+      ruleCharachter: P
+      ruleReplacement: FLFLFLFL[&&&&+++++S]FLF
+      probability: 0.33
+    - name: Primary branch
+      prefix: 
+      suffix: 
+      ruleCharachter: Q
+      ruleReplacement: FLFLFL[&&&&++++S][^^^^+++++S]FLFLP
+      probability: 0.33
+    - name: Primary branch
+      prefix: 
+      suffix: 
+      ruleCharachter: Q
+      ruleReplacement: FLFLFLFLFL[^^^^+++++S]FLFLP
+      probability: 0.33
+    - name: Primary branch
+      prefix: 
+      suffix: 
+      ruleCharachter: Q
+      ruleReplacement: FLFL-FLF-FL
+      probability: 0.33
+    - name: Secondary branch
+      prefix: 
+      suffix: 
+      ruleCharachter: S
+      ruleReplacement: FLFL[&&&&&&&&+++++FLF][^^^^^^^^++++FL]FLF
+      probability: 1
 --- !u!4 &1298092627
 Transform:
   m_ObjectHideFlags: 0

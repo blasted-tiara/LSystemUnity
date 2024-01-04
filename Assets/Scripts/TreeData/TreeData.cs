@@ -37,6 +37,9 @@ public class TreeData {
                     currentNode.AddChild(newNode);
                     currentNode = newNode;
                     break;
+                case 'L':
+                    currentNode.hasLeaf = true;
+                    break;
                 case '+':
                     turtleState.direction.z += angle;
                     break;
@@ -85,6 +88,32 @@ public class TreeData {
             }
         }
     }
+    
+    public List<LeafData> GetLeafPositions() {
+        List<LeafData> leafPositions = new();
+        TreeNode currentNode;
+        Queue<TreeNode> nodesToProcess = new();
+        nodesToProcess.Enqueue(root);
+        while (nodesToProcess.Count > 0) {
+            currentNode = nodesToProcess.Dequeue();
+            if (currentNode.hasLeaf) {
+                LeafData newLeaf = new() {
+                    position = currentNode.position,
+                    direction = currentNode.position - currentNode.parent.position,
+                    radius = currentNode.radius,
+                };
+
+                leafPositions.Add(newLeaf);
+            }
+            if (currentNode.children != null) {
+                foreach (TreeNode child in currentNode.children) {
+                    nodesToProcess.Enqueue(child);
+                }
+            }
+        }
+
+        return leafPositions;
+    }
 
     public Mesh GenerateMesh() {
         int vertexCount = GetVertexCount(root, numberOfSides);
@@ -110,6 +139,7 @@ public class TreeData {
         return mesh;
     }
     
+    /*
     public Mesh GenerateDecimatedMesh() {
         Mesh mesh = GenerateMesh();
         float quality = 0.3f;
@@ -120,7 +150,8 @@ public class TreeData {
 
         return meshSimplifier.ToMesh();
     }
-    
+    */
+
     private void CreateVertices(Vector3[] vertices, TreeNode rootNode, int sides) {
         Queue<TreeNode> nodesToCreate = new();
         nodesToCreate.Enqueue(rootNode);

@@ -6,6 +6,7 @@ public class TreeNode {
     public TreeNode parent;
     public float radius;
     public int vertexIndex = -1;
+    public bool hasLeaf = false;
     
     public TreeNode(Vector3 position, TreeNode parent, float radius) {
         this.position = position;
