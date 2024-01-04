@@ -233,10 +233,10 @@ public class LSystemContextMatchingTests {
     public void TestContextSensitiveBracketedLSystem() {
         string axiom = "A[B]C";
         Rule[] rules = {
-            new Rule("A", "AB"),
-            new Rule("B", "A[C]B"),
-            new Rule("C", "B"),
-            new Rule("", "B", "B", "X"),
+            new("A", "AB"),
+            new("B", "A[C]B"),
+            new("C", "B"),
+            new("", "B", "B", "X"),
         };
         LSystem lsys = new(axiom, 2, rules);
         Assert.AreEqual("ABX[AB[B]A[C]B]A[C]B", lsys.Generate());
