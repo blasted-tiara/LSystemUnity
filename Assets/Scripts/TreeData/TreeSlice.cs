@@ -9,9 +9,11 @@ public class TreeSlice {
         float smallRandomOffset = Random.Range(-0.5f, 0.5f);
 
         for (int childIndex = 0; childIndex < numberOfChildren; childIndex++) {
+            float radius = numberOfChildren > 1 ? (center.radius + center.children[childIndex].radius) / 2f : center.radius;
+
             Vector3 normal = GetRingNormal(center, childIndex);
             float angleIncrement = 360f / n;
-            Vector3 InitialVertex = Vector3.Normalize(Vector3.Cross(normal, Vector3.forward) ) * center.radius;
+            Vector3 InitialVertex = Vector3.Normalize(Vector3.Cross(normal, Vector3.forward) ) * radius;
             for (int vertexIndex = 0; vertexIndex < n; vertexIndex++) {
                 if (normal != Vector3.zero) {
                     vertices[childIndex * n + vertexIndex] = center.position + Quaternion.AngleAxis(smallRandomOffset + angleIncrement * vertexIndex, normal) * InitialVertex;
