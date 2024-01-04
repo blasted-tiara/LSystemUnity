@@ -34,8 +34,10 @@ public class LSystem {
 
         for (int i = 0; i < input.Length; i++) {
             Rule rule = GetHighestPriorityRule(input, i);
-            if (rule != null) {
-                result += rule.ruleReplacement;
+            List<Rule> rules = GetAllRulesOfTheSameKind(rule, input, i);
+            Rule randomRule = GetRandomRule(rules);
+            if (randomRule != null) {
+                result += randomRule.ruleReplacement;
             } else {
                 result += input[i];
             }
@@ -68,6 +70,40 @@ public class LSystem {
                 }
             } else {
                 return rule;
+            }
+        }
+
+        return null;
+    }
+    
+    private List<Rule> GetAllRulesOfTheSameKind(Rule rule, string input, int index) {
+        List<Rule> rules = new();
+
+        if (rule != null) {
+            foreach (Rule r in rulesMap.GetValueOrDefault(input[index])) {
+                if (r.ruleCharachter == rule.ruleCharachter && r.prefix == rule.prefix && r.suffix == rule.suffix) {
+                    rules.Add(r);
+                }
+            }
+        }
+
+        return rules;
+    }
+    
+    private Rule GetRandomRule(List<Rule> rules) {
+        float totalProbability = 0f;
+
+        foreach (Rule rule in rules) {
+            totalProbability += rule.probability;
+        }
+
+        float randomValue = Random.Range(0f, totalProbability);
+
+        foreach (Rule rule in rules) {
+            if (randomValue <= rule.probability) {
+                return rule;
+            } else {
+                randomValue -= rule.probability;
             }
         }
 
