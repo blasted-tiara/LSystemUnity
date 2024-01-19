@@ -122,11 +122,12 @@ public class TreeData {
         Debug.Log(triangleCount);
 
         Vector3[] vertices = new Vector3[vertexCount];
-        CreateVertices(vertices, root, numberOfSides);
+        Vector3[] normals = new Vector3[vertexCount];
+        CreateVertexData(vertices, normals, root, numberOfSides);
         
         int[] triangles = new int[triangleCount * 3];
         CreateTriangles(triangles, root, numberOfSides);
-
+        
         Vector2[] uvs = new Vector2[vertexCount];
         CreateUVs(uvs, root, numberOfSides);
 
@@ -134,10 +135,11 @@ public class TreeData {
             name = "Tree Mesh",
             vertices = vertices,
             triangles = triangles,
+            normals = normals,
             uv = uvs
         };
-
-        mesh.RecalculateNormals();
+        
+        // mesh.RecalculateNormals();
         mesh.RecalculateTangents();
 
         return mesh;
@@ -156,7 +158,7 @@ public class TreeData {
     }
     */
 
-    private void CreateVertices(Vector3[] vertices, TreeNode rootNode, int sides) {
+    private void CreateVertexData(Vector3[] vertices, Vector3[] normals, TreeNode rootNode, int sides) {
         Queue<TreeNode> nodesToCreate = new();
         nodesToCreate.Enqueue(rootNode);
         
@@ -165,9 +167,10 @@ public class TreeData {
             TreeNode currentNode = nodesToCreate.Dequeue();
             currentNode.vertexIndex = currentIndex;
             if (currentNode.children != null && currentNode.children.Length > 0) {
-                Vector3[] sliceVertices = TreeSlice.GenerateSlice(currentNode, sides);
-                foreach (Vector3 vertex in sliceVertices) {
-                    vertices[currentIndex] = vertex;
+                var (sliceVertices, sliceNormals) = TreeSlice.GenerateSlice(currentNode, sides);
+                for (int i = 0; i < sliceVertices.Length; i++) {
+                    vertices[currentIndex] = sliceVertices[i];
+                    normals[currentIndex] = sliceNormals[i];
                     currentIndex++;
                 }
 
@@ -176,6 +179,7 @@ public class TreeData {
                 }
             } else {
                 vertices[currentIndex] = currentNode.position;
+                normals[currentIndex] = Vector3.Normalize(currentNode.position - currentNode.parent.position);
                 currentIndex++;
             }
         }
