@@ -1,0 +1,47 @@
+Date : 2024-01-05 15:52:39
+Directory : c:\Users\Enver\projects\Unity\LSystem
+Total : 15 files,  1328 codes, 58 comments, 175 blanks, all 1561 lines
+
+Languages
++-------------------------+------------+------------+------------+------------+------------+
+| language                | files      | code       | comment    | blank      | total      |
++-------------------------+------------+------------+------------+------------+------------+
+| C#                      |         10 |        929 |         58 |        173 |      1,160 |
+| JSON                    |          2 |        344 |          0 |          2 |        346 |
+| UnityAssemblyDefinition |          3 |         55 |          0 |          0 |         55 |
++-------------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                      | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                         |         15 |      1,328 |         58 |        175 |      1,561 |
+| Assets                                                                                    |         13 |        984 |         58 |        173 |      1,215 |
+| Assets\Scripts                                                                            |         13 |        984 |         58 |        173 |      1,215 |
+| Assets\Scripts\LSystem                                                                    |          4 |        270 |          9 |         63 |        342 |
+| Assets\Scripts\Tests                                                                      |          3 |        324 |         25 |         44 |        393 |
+| Assets\Scripts\TreeData                                                                   |          6 |        390 |         24 |         66 |        480 |
+| Packages                                                                                  |          2 |        344 |          0 |          2 |        346 |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------+-------------------------+------------+------------+------------+------------+
+| filename                                                                                  | language                | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------+-------------------------+------------+------------+------------+------------+
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\LSystem\LSystem.asmdef               | UnityAssemblyDefinition |         16 |          0 |          0 |         16 |
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\LSystem\LSystem.cs                   | C#                      |        197 |          3 |         44 |        244 |
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\LSystem\Rule.cs                      | C#                      |         23 |          0 |          5 |         28 |
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\LSystem\Turtle.cs                    | C#                      |         34 |          6 |         14 |         54 |
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\Tests\LSystemContextMatchingTests.cs | C#                      |        207 |          5 |         33 |        245 |
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\Tests\Tests.asmdef                   | UnityAssemblyDefinition |         25 |          0 |          0 |         25 |
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\Tests\TreeDataTest.cs                | C#                      |         92 |         20 |         11 |        123 |
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\TreeData\LeafData.cs                 | C#                      |          6 |          0 |          1 |          7 |
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\TreeData\TreeData.asmdef             | UnityAssemblyDefinition |         14 |          0 |          0 |         14 |
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\TreeData\TreeData.cs                 | C#                      |        266 |         14 |         45 |        325 |
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\TreeData\TreeNode.cs                 | C#                      |         58 |          7 |         10 |         75 |
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\TreeData\TreeSlice.cs                | C#                      |         37 |          3 |          8 |         48 |
+| c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\TreeData\TurtleState.cs              | C#                      |          9 |          0 |          2 |         11 |
+| c:\Users\Enver\projects\Unity\LSystem\Packages\manifest.json                              | JSON                    |         39 |          0 |          1 |         40 |
+| c:\Users\Enver\projects\Unity\LSystem\Packages\packages-lock.json                         | JSON                    |        305 |          0 |          1 |        306 |
+| Total                                                                                     |                         |      1,328 |         58 |        175 |      1,561 |
++-------------------------------------------------------------------------------------------+-------------------------+------------+------------+------------+------------+

@@ -1,0 +1,17 @@
+"filename", "language", "JSON", "C#", "UnityAssemblyDefinition", "comment", "blank", "total"
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\LSystem\LSystem.asmdef", "UnityAssemblyDefinition", 0, 0, 16, 0, 0, 16
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\LSystem\LSystem.cs", "C#", 0, 197, 0, 3, 44, 244
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\LSystem\Rule.cs", "C#", 0, 23, 0, 0, 5, 28
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\LSystem\Turtle.cs", "C#", 0, 34, 0, 6, 14, 54
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\Tests\LSystemContextMatchingTests.cs", "C#", 0, 207, 0, 5, 33, 245
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\Tests\Tests.asmdef", "UnityAssemblyDefinition", 0, 0, 25, 0, 0, 25
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\Tests\TreeDataTest.cs", "C#", 0, 92, 0, 20, 11, 123
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\TreeData\LeafData.cs", "C#", 0, 6, 0, 0, 1, 7
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\TreeData\TreeData.asmdef", "UnityAssemblyDefinition", 0, 0, 14, 0, 0, 14
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\TreeData\TreeData.cs", "C#", 0, 266, 0, 14, 45, 325
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\TreeData\TreeNode.cs", "C#", 0, 58, 0, 7, 10, 75
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\TreeData\TreeSlice.cs", "C#", 0, 37, 0, 3, 8, 48
+"c:\Users\Enver\projects\Unity\LSystem\Assets\Scripts\TreeData\TurtleState.cs", "C#", 0, 9, 0, 0, 2, 11
+"c:\Users\Enver\projects\Unity\LSystem\Packages\manifest.json", "JSON", 39, 0, 0, 0, 1, 40
+"c:\Users\Enver\projects\Unity\LSystem\Packages\packages-lock.json", "JSON", 305, 0, 0, 0, 1, 306
+"Total", "-", 344, 929, 55, 58, 175, 1561
