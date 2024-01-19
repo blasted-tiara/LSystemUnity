@@ -27,7 +27,7 @@ public class Turtle : MonoBehaviour {
     void InstantiateLeaf(LeafData leafData) {
         for (int i = 0; i < 4; i++) {
             GameObject leaf = Instantiate(leafModel, leafData.position, Quaternion.LookRotation(leafData.direction));
-            float scale = leafData.radius * Random.Range(0.8f, 3.0f);
+            float scale = leafData.radius * Random.Range(0.8f, 2f);
             leaf.transform.localScale = new Vector3(scale, scale, scale);
             leaf.transform.Rotate(0, 0, Random.Range(i * 90, (i + 1) * 90));
             leaf.transform.parent = transform;
