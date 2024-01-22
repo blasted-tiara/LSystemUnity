@@ -123,7 +123,8 @@ public class TreeData {
 
         Vector3[] vertices = new Vector3[vertexCount];
         Vector3[] normals = new Vector3[vertexCount];
-        CreateVertexData(vertices, normals, root, numberOfSides);
+        Vector4[] tangents = new Vector4[vertexCount];
+        CreateVertexData(vertices, normals, tangents, root, numberOfSides);
         
         int[] triangles = new int[triangleCount * 3];
         CreateTriangles(triangles, root, numberOfSides);
@@ -136,12 +137,10 @@ public class TreeData {
             vertices = vertices,
             triangles = triangles,
             normals = normals,
+            tangents = tangents,
             uv = uvs
         };
         
-        // mesh.RecalculateNormals();
-        mesh.RecalculateTangents();
-
         return mesh;
     }
     
@@ -158,7 +157,7 @@ public class TreeData {
     }
     */
 
-    private void CreateVertexData(Vector3[] vertices, Vector3[] normals, TreeNode rootNode, int sides) {
+    private void CreateVertexData(Vector3[] vertices, Vector3[] normals, Vector4[] tangents, TreeNode rootNode, int sides) {
         Queue<TreeNode> nodesToCreate = new();
         nodesToCreate.Enqueue(rootNode);
         
@@ -167,10 +166,11 @@ public class TreeData {
             TreeNode currentNode = nodesToCreate.Dequeue();
             currentNode.vertexIndex = currentIndex;
             if (currentNode.children != null && currentNode.children.Length > 0) {
-                var (sliceVertices, sliceNormals) = TreeSlice.GenerateSlice(currentNode, sides);
+                var (sliceVertices, sliceNormals, sliceTangents) = TreeSlice.GenerateSliceData(currentNode, sides);
                 for (int i = 0; i < sliceVertices.Length; i++) {
                     vertices[currentIndex] = sliceVertices[i];
                     normals[currentIndex] = sliceNormals[i];
+                    tangents[currentIndex] = new Vector4(sliceTangents[i].x, sliceTangents[i].y, sliceTangents[i].z, -1f);
                     currentIndex++;
                 }
 
