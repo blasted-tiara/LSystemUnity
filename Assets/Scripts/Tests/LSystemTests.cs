@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-public class LSystemContextMatchingTests {
+public class LSystemTests {
     // Test backwards bracket skipping
     [Test]
     public void TestNoBracketBackward() {
@@ -240,5 +240,43 @@ public class LSystemContextMatchingTests {
         };
         LSystem lsys = new(axiom, 2, rules);
         Assert.AreEqual("ABX[AB[B]A[C]B]A[C]B", lsys.Generate());
+    }
+    
+    // Label index tests
+    [Test]
+    public void TestLabelIndex() {
+        string axiom = "AA1";
+        Rule[] rules = {
+            new("A", "B"),
+            new("A1", "C")
+        };
+        LSystem lsys = new(axiom, 1, rules);
+        Assert.AreEqual("BC", lsys.Generate());
+    }
+    
+    [Test]
+    public void TestLabelIndex2Steps() {
+        string axiom = "AA1AA1";
+        Rule[] rules = {
+            new("A", "B1"),
+            new("A1", "C"),
+            new("B1", "D")
+        };
+        LSystem lsys = new(axiom, 2, rules);
+        Assert.AreEqual("DCDC", lsys.Generate());
+    }
+    
+    [Test]
+    public void TestLabelIndexMultipleDigits() {
+        string axiom = "F10F10";
+        Rule[] rules = {
+            new("F10", "FFFFFFFFFF")
+        };
+        LSystem lsys = new(axiom, 1, rules);
+        Assert.AreEqual("FFFFFFFFFFFFFFFFFFFF", lsys.Generate());
+    }
+    
+    public void TestLabelIndexPlus() {
+        string axiom = "F+{5}F";
     }
 }

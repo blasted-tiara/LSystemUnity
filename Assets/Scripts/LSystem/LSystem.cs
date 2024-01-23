@@ -9,7 +9,7 @@ public class LSystem {
     public int iterations;
     [SerializeField]
     public Rule[] rules;
-    private Dictionary<char, List<Rule>> rulesMap;
+    private Dictionary<string, List<Rule>> rulesMap;
     
     public LSystem(string axiom, int iterations, Rule[] rules) {
         this.axiom = axiom;
@@ -28,60 +28,105 @@ public class LSystem {
 
         return result;
     }
+    
+    /*
+    private string GetRuleName(string input, ref int index) {
+        if (IsLetter(input[index])) {
+            string result = input[index++].ToString();
+            while (index < input.Length && Is(input[index])) {
+                result += input[index];
+                index++;
+            }
+        } else {
+            return input[index].ToString();
+        }
+
+    }
+    */
+    
+    private bool IsLetter(char c) {
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+    }
+
+    private bool IsDigit(char c) {
+        return c >= '0' && c <= '9';
+    }
 
     private string GenerateIteration(string input) {
         string result = "";
 
-        for (int i = 0; i < input.Length; i++) {
-            Rule rule = GetHighestPriorityRule(input, i);
-            List<Rule> rules = GetAllRulesOfTheSameKind(rule, input, i);
+        int i = 0;
+        while (i < input.Length) {
+            string currentRuleString = GetCurrentRuleString(input, i);
+            Rule rule = GetHighestPriorityRule(input, i, currentRuleString);
+            List<Rule> rules = GetAllRulesOfTheSameKind(rule, currentRuleString);
             Rule randomRule = GetRandomRule(rules);
             if (randomRule != null) {
                 result += randomRule.ruleReplacement;
             } else {
                 result += input[i];
             }
+            
+            i += currentRuleString.Length;
         }
 
         return result;
+    
     }
+    
+    private string GetCurrentRuleString(string input, int index) {
+        string result = "";
+        
+        if (IsLetter(input[index])) {
+            result += input[index++].ToString();
+            
+            while (index < input.Length && IsDigit(input[index])) {
+                result += input[index++].ToString();
+            }
 
-    private Rule GetHighestPriorityRule(string input, int index) {
-        List<Rule> rules = rulesMap.GetValueOrDefault(input[index]);
+        } else {
+            return input[index].ToString();
+        }
+        
+        return result;
+    }
+    
+    private Rule GetHighestPriorityRule(string input, int index, string ruleString) {
+        List<Rule> rules = rulesMap.GetValueOrDefault(ruleString);
 
         if (rules == null) {
             return null;
         }
-
+        
         rules.Sort((rule1, rule2) => rule2.GetPriority().CompareTo(rule1.GetPriority()));
-
+        
         foreach (Rule rule in rules) {
-            if (rule.prefix.Length > 0 && rule.suffix.Length > 0) {
-                if (IsPrefixedBy(input, index, rule.prefix) && IsSuffixedBy(input, index, rule.suffix)) {
-                    return rule;
-                }
-            } else if (rule.prefix.Length > 0) {
-                if (IsPrefixedBy(input, index, rule.prefix)) {
-                    return rule;
-                }
-            } else if (rule.suffix.Length > 0) {
-                if (IsSuffixedBy(input, index, rule.suffix)) {
-                    return rule;
-                }
-            } else {
+        if (rule.prefix.Length > 0 && rule.suffix.Length > 0) {
+            if (IsPrefixedBy(input, index, rule.prefix) && IsSuffixedBy(input, index, rule.suffix)) {
                 return rule;
             }
+        } else if (rule.prefix.Length > 0) {
+            if (IsPrefixedBy(input, index, rule.prefix)) {
+                return rule;
+            }
+        } else if (rule.suffix.Length > 0) {
+            if (IsSuffixedBy(input, index, rule.suffix)) {
+                return rule;
+            }
+        } else {
+            return rule;
+}
         }
 
         return null;
     }
     
-    private List<Rule> GetAllRulesOfTheSameKind(Rule rule, string input, int index) {
+    private List<Rule> GetAllRulesOfTheSameKind(Rule rule, string ruleString) {
         List<Rule> rules = new();
 
         if (rule != null) {
-            foreach (Rule r in rulesMap.GetValueOrDefault(input[index])) {
-                if (r.ruleCharachter == rule.ruleCharachter && r.prefix == rule.prefix && r.suffix == rule.suffix) {
+            foreach (Rule r in rulesMap.GetValueOrDefault(ruleString)) {
+                if (r.ruleString == rule.ruleString && r.prefix == rule.prefix && r.suffix == rule.suffix) {
                     rules.Add(r);
                 }
             }
@@ -91,23 +136,28 @@ public class LSystem {
     }
     
     private Rule GetRandomRule(List<Rule> rules) {
-        float totalProbability = 0f;
+        if (rules.Count == 0) {
+            return null;
+        } else if (rules.Count == 1) {
+            return rules[0];
+        } else {
+            float totalProbability = 0f;
 
-        foreach (Rule rule in rules) {
-            totalProbability += rule.probability;
-        }
-
-        float randomValue = Random.Range(0f, totalProbability);
-
-        foreach (Rule rule in rules) {
-            if (randomValue <= rule.probability) {
-                return rule;
-            } else {
-                randomValue -= rule.probability;
+            foreach (Rule rule in rules) {
+                totalProbability += rule.probability;
             }
-        }
 
-        return null;
+            float randomValue = Random.Range(0f, totalProbability);
+
+            foreach (Rule rule in rules) {
+                if (randomValue <= rule.probability) {
+                    return rule;
+                } else {
+                    randomValue -= rule.probability;
+                }
+            }
+            return null;
+        }
     }
 
     public static bool IsPrefixedBy(string input, int index, string prefix) {
@@ -227,14 +277,14 @@ public class LSystem {
         return currentIndex;
     }
 
-    private Dictionary<char, List<Rule>> InitRulesMap() {
-        Dictionary<char, List<Rule>> rulesMap = new();
+    private Dictionary<string, List<Rule>> InitRulesMap() {
+        Dictionary<string, List<Rule>> rulesMap = new();
 
         foreach (Rule rule in rules) {
-            if (rulesMap.ContainsKey(rule.ruleCharachter[0])) {
-                rulesMap[rule.ruleCharachter[0]].Add(rule);
+            if (rulesMap.ContainsKey(rule.ruleString)) {
+                rulesMap[rule.ruleString].Add(rule);
             } else {
-                rulesMap[rule.ruleCharachter[0]] = new List<Rule> { rule };
+                rulesMap[rule.ruleString] = new List<Rule> { rule };
             }
         }
 
