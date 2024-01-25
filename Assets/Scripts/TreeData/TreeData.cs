@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +38,7 @@ public class TreeData {
                     currentNode.AddChild(newNode);
                     currentNode = newNode;
                     break;
-                case 'L':
+                case '*':
                     currentNode.hasLeaf = true;
                     break;
                 case '+':
@@ -68,7 +69,7 @@ public class TreeData {
                     currentNode = turtleState.currentNode;
                     break;
                 case '!':
-                    turtleState.radius *= radiusDecay;
+                    turtleState.radius = Math.Max(turtleState.radius *= radiusDecay, 2f);
                     break;
             }
         }
