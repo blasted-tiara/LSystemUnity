@@ -15,6 +15,10 @@ public class LSystem {
         this.axiom = axiom;
         this.iterations = iterations;
         this.rules = rules;
+        
+        foreach (Rule rule in rules) {
+            rule.ExpandStrings();
+        }
     }
 
     public string Generate() {

@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 
 public class LSystemTests {
@@ -276,7 +277,52 @@ public class LSystemTests {
         Assert.AreEqual("FFFFFFFFFFFFFFFFFFFF", lsys.Generate());
     }
     
-    public void TestLabelIndexPlus() {
-        string axiom = "F+{5}F";
+    [Test]
+    public void TestSymbolMultiplication1() {
+        string axiom = "A";
+        Rule[] rules = {
+            new("A", "F+{5}F")
+        };
+        LSystem lsys = new(axiom, 1, rules);
+        Assert.AreEqual("F+++++F", lsys.Generate());
+    }
+    
+    [Test]
+    public void TestSymbolMultiplication2() {
+        string axiom = "A";
+        Rule[] rules = {
+            new("A", "B{5}C{5}"),
+            new("B", "D{2}"),
+            new("C", "E{3}")
+        };
+        LSystem lsys = new(axiom, 2, rules);
+        Assert.AreEqual("DDDDDDDDDDEEEEEEEEEEEEEEE", lsys.Generate());
+    }
+    
+    [Test]
+    public void TestSymbolMultiplicationInvalidInputZero() {
+        string axiom = "A";
+        Rule[] rules = {
+            new("A", "B{0}")
+        };
+        Assert.Throws<FormatException>(() => new LSystem(axiom, 1, rules));
+    }
+    
+    [Test]
+    public void TestSymbolMultiplicationNegativeInput() {
+        string axiom = "A";
+        Rule[] rules = {
+            new("A", "B{-1}")
+        };
+        Assert.Throws<FormatException>(() => new LSystem(axiom, 1, rules));
+    }
+    
+    [Test]
+    public void TestSymbolMultiplicationZeroInput() {
+        string axiom = "A";
+        Rule[] rules = {
+            new("A", "B{0}")
+        };
+        Assert.Throws<FormatException>(() => new LSystem(axiom, 1, rules));
     }
 }
